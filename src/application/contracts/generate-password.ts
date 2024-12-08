@@ -1,3 +1,3 @@
 export interface GeneratePassword {
-  generate: () => string;
+  generatePassword: () => string;
 }

@@ -41,7 +41,7 @@ export class CryptographyService
   async compare(plaintext: string, digest: string): Promise<boolean> {
     return await bcrypt.compare(plaintext, digest);
   }
-  generate(): string {
+  generatePassword(): string {
     return generatePassword.generate({
       length: 12,
       numbers: true,

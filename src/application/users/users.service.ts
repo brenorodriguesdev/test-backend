@@ -48,7 +48,7 @@ export class UsersService implements SignInUseCase, SignUpUseCase {
       throw new BadRequestException('E-mail already exist!');
     }
 
-    const generatedPassword = this.cryptographyService.generate();
+    const generatedPassword = this.cryptographyService.generatePassword();
 
     const passwordHash = await this.cryptographyService.hash(generatedPassword);
 
