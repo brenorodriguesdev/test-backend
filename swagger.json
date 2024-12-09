@@ -94,6 +94,16 @@
       "put": {
         "operationId": "TasksController_update",
         "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTaskRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": ""
@@ -113,7 +123,7 @@
         "parameters": [
           {
             "name": "statusId",
-            "required": true,
+            "required": false,
             "in": "query",
             "schema": {
               "type": "number"
@@ -275,6 +285,9 @@
           "name": {
             "type": "string"
           },
+          "description": {
+            "type": "string"
+          },
           "start_date": {
             "format": "date-time",
             "type": "string"
@@ -282,12 +295,17 @@
           "end_date": {
             "format": "date-time",
             "type": "string"
+          },
+          "statusId": {
+            "type": "number"
           }
         },
         "required": [
           "name",
+          "description",
           "start_date",
-          "end_date"
+          "end_date",
+          "statusId"
         ]
       },
       "UserModel": {
@@ -313,35 +331,6 @@
           "password"
         ]
       },
-      "TaskModel": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "start_date": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "end_date": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "user": {
-            "$ref": "#/components/schemas/UserModel"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "start_date",
-          "end_date",
-          "user"
-        ]
-      },
       "TaskStatusModel": {
         "type": "object",
         "properties": {
@@ -355,6 +344,76 @@
         "required": [
           "id",
           "name"
+        ]
+      },
+      "TaskModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserModel"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TaskStatusModel"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "start_date",
+          "end_date",
+          "user",
+          "status"
+        ]
+      },
+      "UpdateTaskRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "statusId": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "start_date",
+          "end_date",
+          "statusId",
+          "id"
         ]
       }
     }

@@ -16,7 +16,7 @@ export class TaskRepository implements ITaskRepository {
   async getById(id: number): Promise<TaskModel> {
     const task = await this.taskRepository.findOne({
       where: { id },
-      relations: ['user'],
+      relations: ['user', 'status'],
     });
     return task;
   }

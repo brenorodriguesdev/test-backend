@@ -14,4 +14,8 @@ export class TaskStatusRepository implements ITaskStatusRepository {
   async list(): Promise<TaskStatus[]> {
     return await this.taskStatusRepository.find({});
   }
+
+  async getStatusById(id: number): Promise<TaskStatus> {
+    return await this.taskStatusRepository.findOne({ where: { id } });
+  }
 }

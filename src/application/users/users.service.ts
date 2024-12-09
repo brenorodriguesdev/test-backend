@@ -5,7 +5,12 @@ import { SignUpUseCase } from 'src/domain/useCases/users/sign-up';
 import { UserRepository } from 'src/infra/repositories/user.repository';
 import { CryptographyService } from 'src/shared/cryptography.service';
 import { MailService } from 'src/shared/mail.service';
-import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 
 @Injectable()
 export class UsersService implements SignInUseCase, SignUpUseCase {
@@ -21,7 +26,7 @@ export class UsersService implements SignInUseCase, SignUpUseCase {
   }: SignInRequest): Promise<SignInResponse | HttpException> {
     const user = await this.userRepository.getByEmail(email);
     if (!user) {
-      throw new BadRequestException('E-mail or password is invalid!');
+      throw new UnauthorizedException('E-mail or password is invalid!');
     }
     const isValid = await this.cryptographyService.compare(
       password,
@@ -29,7 +34,7 @@ export class UsersService implements SignInUseCase, SignUpUseCase {
     );
 
     if (!isValid) {
-      throw new BadRequestException('E-mail or password is invalid!');
+      throw new UnauthorizedException('E-mail or password is invalid!');
     }
 
     delete user.password;
@@ -44,7 +49,7 @@ export class UsersService implements SignInUseCase, SignUpUseCase {
 
   async signUp({ email, name }: SignUpRequest): Promise<void | HttpException> {
     const user = await this.userRepository.getByEmail(email);
-    if (!user) {
+    if (user) {
       throw new BadRequestException('E-mail already exist!');
     }
 

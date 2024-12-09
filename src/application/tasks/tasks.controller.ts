@@ -60,7 +60,7 @@ export class TasksController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth('access-token')
   delete(@Param() { taskId }: DeleteTaskRequest) {
-    return this.tasksService.delete(taskId);
+    return this.tasksService.delete(Number(taskId));
   }
 
   @HttpCode(HttpStatus.OK)

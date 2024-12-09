@@ -29,7 +29,7 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
-  writeFileSync('./openapi.json', JSON.stringify(documentFactory(), null, 2));
+  writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
 
   await app.listen(process.env.PORT ?? 3000);
 }

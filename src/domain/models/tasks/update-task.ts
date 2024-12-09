@@ -1,8 +1,9 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { CreateTaskRequest } from './create-task';
+import { IsNumber } from 'class-validator';
 
-export interface UpdateTaskRequest extends CreateTaskRequest {
+export class UpdateTaskRequest extends CreateTaskRequest {
+  @ApiProperty()
+  @IsNumber()
   id?: number;
-  name: string;
-  start_date?: Date;
-  end_date?: Date;
 }

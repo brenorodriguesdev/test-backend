@@ -8,6 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { TasksService } from './application/tasks/tasks.service';
 import { TasksModule } from './application/tasks/tasks.module';
+import { AppController } from './app.controller';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
@@ -55,12 +57,24 @@ import { TasksModule } from './application/tasks/tasks.module';
       }),
     }),
 
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        connection: {
+          host: configService.get<string>('REDIS_HOST'),
+          port: configService.get<number>('REDIS_PORT'),
+          password: configService.get<string>('REDIS_PASSWORD') || undefined,
+        },
+      }),
+      inject: [ConfigService],
+    }),
+
     UsersModule,
     SharedModule,
     InfraModule,
     TasksModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [TasksService],
 })
 export class AppModule {}

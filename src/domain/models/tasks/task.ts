@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserModel } from '../users/user';
+import { TaskStatusModel } from './task-status';
 
 export class TaskModel {
   @ApiProperty()
@@ -7,9 +8,13 @@ export class TaskModel {
   @ApiProperty()
   name: string;
   @ApiProperty()
-  start_date: Date;
+  description?: string;
   @ApiProperty()
-  end_date: Date;
+  start_date?: Date;
+  @ApiProperty()
+  end_date?: Date;
   @ApiProperty()
   user: UserModel;
+  @ApiProperty()
+  status: TaskStatusModel;
 }
