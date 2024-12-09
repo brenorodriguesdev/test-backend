@@ -18,6 +18,7 @@ jobs:
       - run: echo "${{ secrets.ENV }}" > .env
       - run: npm install
       - run: npm run build
+      - run: npm run migration:run
       - run: docker rmi -f test-backend:latest
       - run: docker build -t test-backend:latest .
       - run: docker rm -f test-backend
