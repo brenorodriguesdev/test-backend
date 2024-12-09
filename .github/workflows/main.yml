@@ -19,3 +19,5 @@ jobs:
       - run: npm run build
       - run: docker rmi -f test-backend:latest
       - run: docker build -t test-backend:latest .
+      - run: echo "${{ secrets.ENV }}" > .env
+
