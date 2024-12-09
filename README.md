@@ -1,99 +1,187 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# **Backend Application**
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This is a **NestJS** backend application with **MySQL**, **Redis**, and **BullMQ** for queue processing. The application is containerized using **Docker** and supports **TypeORM migrations**, **JWT authentication**, and **mailing capabilities**.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 **Features**
+- **NestJS** framework for scalable server-side development.
+- **MySQL** database with TypeORM for data modeling and migrations.
+- **Redis** as a cache and queue system for background jobs using **BullMQ**.
+- **JWT Authentication** to secure routes and manage user sessions.
+- **Mailing** via **@nestjs-modules/mailer**.
+- **Dockerized** for easy deployment and development.
+- **CI/CD Ready** with scripts for migration and build.
 
-## Project setup
+---
 
-```bash
-$ npm install
+## 📂 **Project Structure**
+```
+.
+├── src
+│   ├── application       # Business logic layer (Use Cases, Services, etc)
+│   ├── domain            # Domain models and entities
+│   ├── infra             # Infrastructure (database repositories, migrations, etc)
+│   ├── main.ts           # Main entry point
+│   └── app.module.ts     # Main module
+│
+├── test                  # Unit and e2e tests
+├── Dockerfile            # Dockerfile to containerize the app
+├── docker-compose.yml    # Docker Compose configuration
+├── .env                  # Environment variables file
+├── package.json          # Node.js dependencies and scripts
+└── README.md             # This file
 ```
 
-## Compile and run the project
+---
 
+## 🛠️ **Technologies Used**
+- **Node.js** (v18 or later)
+- **NestJS** (v10)
+- **MySQL** (v8.0)
+- **Redis** (v6.2)
+- **BullMQ** for job queues
+- **TypeORM** for database migrations
+- **Docker & Docker Compose** for containerization
+
+---
+
+## 📦 **Setup and Installation**
+
+### **1️⃣ Clone the repository**
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/yourusername/backend.git
+cd backend
 ```
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+### **2️⃣ Set up environment variables**
+Create a **.env** file in the root directory and add the following:
+```env
+# MySQL configuration
+MYSQL_ROOT_PASSWORD=your_mysql_password
+MYSQL_USER=your_user
+MYSQL_PASSWORD=your_password
+MYSQL_DATABASE=your_database
 
-# e2e tests
-$ npm run test:e2e
+# Redis configuration
+REDIS_PASSWORD=secretaesenha
 
-# test coverage
-$ npm run test:cov
+# JWT configuration
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=3600s
+
+# Email configuration
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USER=your_mail_user
+MAIL_PASS=your_mail_pass
 ```
 
-## Deployment
+> **Note:** Adjust the **MySQL** and **Redis** passwords according to your requirements.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+### **3️⃣ Run Docker containers**
+To start the containers (**MySQL**, **Redis**, and **App**):
 ```bash
-$ npm install -g mau
-$ mau deploy
+docker-compose up --build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+This command will:
+- **Build the app container** using the **Dockerfile**.
+- **Run migrations** automatically before the app starts.
+- **Start the MySQL and Redis services** with passwords from the **.env** file.
 
-## Resources
+> 💡 The server will be accessible on **http://localhost:3000**.
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### **4️⃣ Run Migrations**
+If you want to run migrations manually, use:
+```bash
+docker-compose exec app npm run migration:run
+```
 
-## Support
+This will apply pending migrations to the MySQL database.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+---
 
-## Stay in touch
+### **5️⃣ Run Tests**
+Run **unit tests** with:
+```bash
+npm run test
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Run **end-to-end (e2e) tests** with:
+```bash
+npm run test:e2e
+```
 
-## License
+Run **test coverage** with:
+```bash
+npm run test:cov
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## 🚀 **Usage**
+
+### **Run app in development mode**
+```bash
+npm run start:dev
+```
+
+This will start the server at **http://localhost:3000** with **hot-reloading** enabled.
+
+---
+
+### **Run app in production mode**
+Build and run the production version of the app:
+```bash
+docker-compose up --build
+```
+
+This will:
+- **Build the production image**.
+- **Run migrations**.
+- **Start the app, MySQL, and Redis**.
+
+---
+
+### **Available Scripts**
+| **Script**         | **Description**                                  |
+|-------------------|--------------------------------------------------|
+| `npm run build`    | Compiles the TypeScript files                    |
+| `npm run start`    | Starts the application                           |
+| `npm run start:dev`| Starts the app in development mode (watch)       |
+| `npm run start:prod`| Starts the production build                     |
+| `npm run test`     | Runs the unit tests                              |
+| `npm run test:e2e` | Runs the end-to-end (e2e) tests                  |
+| `npm run lint`     | Lints the code using ESLint                      |
+| `npm run format`   | Formats the code using Prettier                  |
+| `npm run migration:generate` | Generates a new migration file         |
+| `npm run migration:run`       | Runs all pending migrations            |
+| `npm run migration:revert`    | Reverts the last applied migration      |
+
+---
+
+## 📜 **License**
+This project is licensed under the **UNLICENSED** license. This means the project is not open-source.
+
+---
+
+## 🤝 **Contributing**
+1. Fork the project.
+2. Create a new branch: `git checkout -b feature/new-feature`.
+3. Commit your changes: `git commit -m 'Add new feature'`.
+4. Push to the branch: `git push origin feature/new-feature`.
+5. Open a pull request.
+
+---
+
+## 📞 **Contact**
+If you have questions, please feel free to reach out.
+
