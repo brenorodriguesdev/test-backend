@@ -1,11 +1,11 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 export class FilterTaskRequest {
   @IsOptional()
   userId?: number;
   @ApiPropertyOptional()
   @IsOptional()
-  @IsNumber()
+  @IsString()
   statusId?: number;
 }
