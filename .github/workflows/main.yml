@@ -20,6 +20,7 @@ jobs:
       - run: npm run build
       - run: docker rmi -f test-backend:latest
       - run: docker build -t test-backend:latest .
+      - run: docker rm -f test-backend
       - run: docker run -d --name test-backend -p 3000:3000 test-backend:latest
 
 
