@@ -37,7 +37,7 @@ This is a **NestJS** backend application with **MySQL**, **Redis**, and **BullMQ
 ---
 
 ## 🛠️ **Technologies Used**
-- **Node.js** (v18 or later)
+- **Node.js** (v20 or later)
 - **NestJS** (v10)
 - **MySQL** (v8.0)
 - **Redis** (v6.2)
