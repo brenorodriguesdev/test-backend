@@ -21,6 +21,6 @@ jobs:
       - run: docker rmi -f test-backend:latest
       - run: docker build -t test-backend:latest .
       - run: docker rm -f test-backend
-      - run: docker run -d --name test-backend -p 3000:3000 test-backend:latest
+      - run: docker run -d --name test-backend  --network meu_network -p 3000:3000 test-backend:latest
 
 
